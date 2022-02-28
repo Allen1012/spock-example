@@ -10,11 +10,13 @@ import spock.lang.Unroll
 
 /**
  * 用户服务测试类
- * @author 公众号:Java老K
- * 个人博客:www.javakk.com
+ * @author
+ *
  */
 class UserServiceTest extends Specification {
+
     def userService = new UserService()
+    //Spock自带的Mock方法,构造一个UserDao的Mock对象
     def userDao = Mock(UserDao)
     def moneyDAO = Mock(MoneyDAO)
 
@@ -23,22 +25,29 @@ class UserServiceTest extends Specification {
         userService.moneyDAO = moneyDAO
     }
 
-    def "GetUserById"() {
-        given: "设置请求参数"
+    /**
+     * mock数据
+     * @return
+     */
+    @Unroll
+    def "测试mock数据"() {
+
+        given: "创建测试数据"
         def user1 = new UserDTO(id:1, name:"张三", province: "上海")
         def user2 = new UserDTO(id:2, name:"李四", province: "江苏")
         def user3 = new UserDTO(id:3, name:"王五", province: "江苏")
 
+        List<UserDTO> userlist = userDao.getUserInfo()
+        println("in spock users: -----------------")
+        println(userlist)
+        println("in spock users end -----------------")
+
         and: "mock掉接口返回的用户信息"
         userDao.getUserInfo() >> [user1, user2,user3]
-
-        List<UserDTO> list = userDao.getUserInfo()
-        println("-----------")
-        println(list)
-        println("-----------")
+        //其中 ">>" 就是指定返回结果，类似mockito的when().thenReturn()语法，但更简洁一些
 
         when: "调用获取用户信息方法"
-        def response = userService.getUserById(2)
+        def response = userService.getUserById(1)
 
         then: "验证返回结果是否符合预期值"
         with(response) {
@@ -46,10 +55,18 @@ class UserServiceTest extends Specification {
             abbreviation == "沪"
             postCode == 200000
         }
+        //then模块作用是验证被测方法的结果是否正确，符合预期值，所以这个模块里的语句必须是boolean表达式，
+        // 类似于junit的assert断言机制，但你不必显示的写assert，这也是一种约定优于配置的思想
+
+//        where:
+//        uid || _
+//        1  || _
+//        2  || _
     }
 
-    @Unroll
+    @Unroll //@Unroll注解，可以把每一次调用作为一个单独的测试用例运行，这样运行后的单测结果更直观：
     def "当输入的用户id为:#uid 时返回的邮编是:#postCodeResult，处理后的电话号码是:#telephoneResult"() {
+
         given: "mock掉接口返回的用户信息"
         userDao.getUserInfo() >> users
 
@@ -67,10 +84,13 @@ class UserServiceTest extends Specification {
         1   | getUser("上海", "13866667777") || 200000         | "138****7777"
         1   | getUser("北京", "13811112222") || 100000         | "138****2222"
         2   | getUser("南京", "13833334444") || 0              | null
+        //where模块第一行代码是表格的列名，多个列使用"|"单竖线隔开，"||"双竖线区分输入和输出变量，即左边是输入值，右边是输出值
     }
 
     def getUser(String province, String telephone){
-        return [new UserDTO(id: 1, name: "张三", province: province, telephone: telephone)]
+        return [
+            new UserDTO(id: 1, name: "张三", province: province, telephone: telephone)
+        ]
     }
 
     def "测试void方法"() {

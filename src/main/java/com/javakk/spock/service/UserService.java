@@ -17,8 +17,6 @@ import java.util.Map;
 
 /**
  * 用户服务
- * @author 公众号:Java老K
- * 个人博客:www.javakk.com
  */
 @Service
 public class UserService {
@@ -30,10 +28,13 @@ public class UserService {
     MoneyDAO moneyDAO;
 
     public UserVO getUserById(int uid){
+        //需要被mock数据
         List<UserDTO> users = userDao.getUserInfo();
-        System.out.println("in java ------");
+
+        System.out.println("in java users: ------");
         System.out.println(users.toString());
-        System.out.println("in java ------");
+        System.out.println("in java users end ------");
+
         UserDTO userDTO = users.stream().filter(u -> u.getId() == uid).findFirst().orElse(null);
         UserVO userVO = new UserVO();
         if(null == userDTO){

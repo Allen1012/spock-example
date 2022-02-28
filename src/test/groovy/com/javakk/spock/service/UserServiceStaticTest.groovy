@@ -24,7 +24,7 @@ import spock.lang.Specification
 @RunWith(PowerMockRunner.class)
 @PowerMockRunnerDelegate(Sputnik.class)
 @PrepareForTest([LogUtils.class, IDNumberUtils.class])
-@SuppressStaticInitializationFor(["com.javakk.spock.util.LogUtils"])
+@SuppressStaticInitializationFor(["com.javakk.spock.util.LogUtils"]) //这行代码的作用是限制LogUtils类里的静态代码块初始化，因为LogUtils类在第一次调用时会加载一些本地资源配置，比较耗费时间，所以可以使用power mock禁止初始化
 class UserServiceStaticTest extends Specification {
     def processor = new UserService()
     def dao = Mock(UserDao)

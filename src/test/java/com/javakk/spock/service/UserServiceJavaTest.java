@@ -40,6 +40,11 @@ public class UserServiceJavaTest {
                 user2.setName("李四");
                 user2.setProvince("江苏");
                 users.add(user2);
+                UserDTO user3 = new UserDTO();
+                user3.setId(3);
+                user3.setName("王五");
+                user3.setProvince("江");
+                users.add(user3);
                 return users;
             }
         };

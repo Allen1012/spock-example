@@ -79,9 +79,9 @@ class OrderServiceStaticTest extends Specification {
     @Unroll
     def "ConvertUserOrders"() {
         given: "mock掉OrderMapper的静态final变量INSTANCE,并结合spock设置动态返回值"
-        def orderMapper = Mock(OrderMapper.class)
-        Whitebox.setInternalState(OrderMapper.class, "INSTANCE", orderMapper)
-        orderMapper.convert(_) >> order
+        def orderMapper = Mock(OrderMapper.class)// 先使用Spock的mock
+        Whitebox.setInternalState(OrderMapper.class, "INSTANCE", orderMapper)// 将第一步mock的对象orderMapper 使用power mock赋值给静态常量INSTANCEmock
+        orderMapper.convert(_) >> order// 结合where模拟不同的返回值
 
         when: "调用用户订单转换方法"
         def userOrders = orderService.convertUserOrders([new OrderDTO()])

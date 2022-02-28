@@ -21,6 +21,10 @@ public class IDNumberUtilsJavaTest {
     @Test
     @Parameters(method = "getBirAgeSexParams")
     public void getBirAgeSex(String certificateNo, Predicate<Map<String, String>> predicate) {
+        System.out.println( "------");
+        System.out.println(certificateNo);
+        System.out.println(predicate);
+        System.out.println( "------");
         Map<String, String> minuteMap = IDNumberUtils.getBirAgeSex(certificateNo);
         Assert.assertTrue(predicate.test(minuteMap));
     }
@@ -29,7 +33,7 @@ public class IDNumberUtilsJavaTest {
         return new Object[]{
                 new Object[]{
                         "310168199809187333", (Predicate<Map<String, String>>) map ->
-                        "{birthday=1998-09-18, sex=男, age=22}".equals(map.toString())
+                        "{birthday=1998-09-18, sex=男, age=24}".equals(map.toString())
                 },
                 new Object[]{
                         "320168200212084268", (Predicate<Map<String, String>>) map ->

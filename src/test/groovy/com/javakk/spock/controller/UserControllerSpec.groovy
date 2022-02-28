@@ -7,11 +7,9 @@ import spock.lang.Specification
 import spock.lang.Unroll
 
 /**
- * 校验用户请求参数的测试类
- * @author 公众号:Java老K
- * 个人博客:www.javakk.com
+ * thrown 异常测试
  */
-class UserControllerTest extends Specification {
+class UserControllerSpec extends Specification {
 
     def userController = new UserController()
 
@@ -39,6 +37,7 @@ class UserControllerTest extends Specification {
 
     def getUser(errCode) {
         def user = new UserVO()
+        //groovy的闭包功能
         def condition1 = {
             user.name = "杜兰特"
         }
