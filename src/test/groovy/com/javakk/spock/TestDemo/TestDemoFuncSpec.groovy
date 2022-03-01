@@ -5,7 +5,7 @@ import spock.lang.Specification
 /**
  * @Created by sunmeng9
  * @Date 2022/2/28 11:47 AM
- * @Description TODO
+ * @Description 1.演示各个方法执行顺序
  */
 class TestDemoFuncSpec extends Specification{
 

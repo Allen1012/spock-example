@@ -54,4 +54,12 @@ public class TestDemoIf {
         return tax.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
     }
 
+    public int add (int a,int b){
+        return a + b;
+    }
+
+    public int subtraction(int a,int b){
+        return  a - b;
+    }
+
 }

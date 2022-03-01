@@ -103,6 +103,7 @@ class UserServiceTest extends Specification {
 
         then: "验证调用获取最新汇率接口的行为是否符合预期: 一共调用2次, 第一次输出的汇率是0.1413, 第二次是0.1421"
         2 * moneyDAO.getExchangeByCountry(_) >> 0.1413 >> 0.1421
+        //这行代码表示moneyDAO的getExchangeByCountry()方法会被执行2次，第一次输出的结果是0.1413，第二次输出的接口是0.1421
 
         and: "验证根据汇率计算后的金额结果是否正确"
         with(userVO){

@@ -41,4 +41,36 @@ class TestDemoIfSpec extends Specification {
         80000  || 20840.0
         80001  || 20840.45
     }
+
+
+    @Unroll
+    def "测试加法运算: #a + #b = #c"(){
+        setup:
+        TestDemoIf testDemoIf  = new TestDemoIf()
+
+        expect:"测试加法运算"
+        c == testDemoIf.add(a,b)
+
+        where:
+        a | b || c
+        1 | 2 || 3
+        2 | 2 || 4
+        2 | 2 || 5
+    }
+
+
+    @Unroll
+    def "测试减法运算: #a - #b = #c"(){
+        setup:
+        TestDemoIf testDemoIf  = new TestDemoIf()
+
+        expect:"测试加法运算"
+        c == testDemoIf.subtraction(a,b)
+
+        where:
+        a  | b || c
+        11 | 2 || 9
+        12 | 2 || 10
+        12 | 2 || 5
+    }
 }
